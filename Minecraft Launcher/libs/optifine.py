@@ -8,7 +8,8 @@ def get_and_install(file):
     subprocess.run(['java','-cp',file,'optifine.Installer'])
     subprocess.run(['rm','-f',file])
     print(file,'installed')
-def get_version_list():
+
+def get_versions_list():
     url = 'https://optifine.net/downloads'
     response = requests.get(url)
     # Vérifie si la requête a réussi
@@ -23,7 +24,7 @@ def get_version_list():
         versions=list()
         for link in download_links:
             filename = link['href'].split('/')[-1]
-            print(str(link).split('"')[1].split('=')[1])
+            #print(str(link).split('"')[1].split('=')[1])
             versions.append(str(link).split('"')[1].split('=')[1])
         #get(versions[0])
         return versions
@@ -31,3 +32,13 @@ def get_version_list():
     else:
         print('Erreur lors de la requête HTTP')
 
+def get_compatible_versions():
+    versions_compat=dict()
+    for of_version in get_versions_list():
+        mc_version = of_version.replace("preview_OptiFine","OptiFine").split('_')[1]
+        if not mc_version in versions_compat.keys():
+            versions_compat[mc_version]=list()
+        versions_compat[mc_version].append(of_version)
+    return  versions_compat
+
+print(get_compatible_versions())
