@@ -7,7 +7,7 @@ def get_and_install(file):
     subprocess.run(['wget','-q','--show-progress','--progress=bar:force',url,'-O',file])
     subprocess.run(['java','-cp',file,'optifine.Installer'])
     subprocess.run(['rm','-f',file])
-    print(file,'installed')
+    print(file[:-4],'installed')
 
 def get_versions_list():
     url = 'https://optifine.net/downloads'
