@@ -112,11 +112,11 @@ def download_mc(assets,size,downloaded=0):
         #print(asset[1] + "... ",end='')
         os.makedirs(os.path.dirname(asset[1]),exist_ok=True)
         os.chdir(os.path.dirname(asset[1]))
-        #try:
-        #    wget(asset[0],os.path.basename(asset[1]))
-        #except:
-        #    print("problem while downloading",asset[1],"a retry is comming...")
-        #    wget(asset[0],os.path.basename(asset[1]),opts=["--continue"])
+        try:
+            wget(asset[0],os.path.basename(asset[1]))
+        except:
+            print("problem while downloading",asset[1],"a retry is comming...")
+            wget(asset[0],os.path.basename(asset[1]),opts=["--continue"])
         with open(os.path.join(game_directory,'downloaded.json'),'a') as alrd_file:
             alrd_file.write(str(asset)+'\n')
         downloaded+=asset[2]
