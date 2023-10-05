@@ -1,6 +1,16 @@
 import requests
 import subprocess
 from bs4 import BeautifulSoup
+def download_forge(version):
+    if int(version.split(".")[1])>5:
+        mode="universal.jar" # I think that it replace the base client, but I did not have the time to see that.
+        url="https://maven.minecraftforge.net/net/minecraftforge/forge/"+version+"/"+version+"-universal.jar"
+    elif version.split(".")[1] > 2 :
+        mode="universal.zip" # I think that it works like client. zip mode, but not sure at all
+        url="https://maven.minecraftforge.net/net/minecraftforge/forge/"+version+"/"+version+"-universal.zip"
+    else:
+        mode="client.zip" # must be unzipped in the base client jar
+        url="https://maven.minecraftforge.net/net/minecraftforge/forge/"+version+"/"+version+"-client.zip"
 def get_compatible_versions():
     url="https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml"
     response=requests.get(url)
